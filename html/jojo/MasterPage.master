@@ -1,0 +1,870 @@
+﻿<%@ master language="C#" autoeventwireup="true" inherits="html_ltr_MasterPage, App_Web_5k25ydlk" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <%--<meta charset="utf-8">--%>
+    <%-- <meta http-equiv="X-UA-Compatible" content="IE=edge">--%>
+    <!-- Tell the browser to be responsive to screen width -->
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">--%>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../../Image/HRLogoIcon.png" />
+    <link href="../../assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <title>Attendance,Leave,Payroll</title>
+    <%--<link rel="canonical" href="https://www.wrappixel.com/templates/xtremeadmin/" />--%>
+    <!-- Custom CSS -->
+    <link href="../../assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="../../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../dist/css/style.min.css" rel="stylesheet">
+   
+    <%--<link href="../../dist/css/style.css" rel="stylesheet" />--%>
+
+    <link rel="stylesheet" type="text/css" href="../../assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/libs/select2/dist/css/select2.min.css">
+    
+    <link href="../../assets/extra-libs/toastr/dist/build/toastr.min.css" rel="stylesheet">
+    
+
+    <link rel="stylesheet" type="text/css" href="../../assets/libs/quill/dist/quill.snow.css">
+     <link rel="stylesheet" type="text/css" href="../../assets/libs/summernote/dist/summernote-bs4.css">
+	<!-- Custom CSS -->
+	
+    <script type="text/javascript">
+        function isAlpha(keyCode) {
+            return ((keyCode >= 65 && keyCode <= 90) || keyCode == 8)
+        }
+    </script>
+    <script type="text/javascript">
+        function isAlphaNumeric(keyCode) {
+            //return ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || keyCode == 8)
+            return ((keyCode >= 32 && keyCode <= 38) || (keyCode >= 40 && keyCode <= 127) || keyCode == 8)
+            //return ((keyCode != 42))
+        }
+    </script>
+    <script type="text/javascript">
+        var specialKeys = new Array();
+        specialKeys.push(8); //Backspace
+        function IsNumeric(e) {
+            var keyCode = e.which ? e.which : e.keyCode
+            var ret = ((keyCode >= 46 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+            return ret;
+        }
+        function addCommas(nStr) {
+            nStr += '';
+            var x = nStr.split('.');
+            var x1 = x[0];
+            var x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+            return x1 + x2;
+        }
+    </script>
+    <script type="text/javascript">
+        var specialKeys = new Array();
+        specialKeys.push(8); //Backspace
+        function IsNumericWithPercent(e) {
+            var keyCode = e.which ? e.which : e.keyCode //46
+            var ret = (((keyCode >= 48 && keyCode <= 57) || (keyCode == 37) || (keyCode == 46)) || specialKeys.indexOf(keyCode) != -1);
+            return ret;
+        }
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+            <!-- ============================================================== -->
+            <!-- Topbar header - style you can find in pages.scss -->
+            <!-- ============================================================== -->
+            <header class="topbar">
+                <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                    <div class="navbar-header">
+                        <!-- This is for the sidebar toggle which is visible on mobile only -->
+                        <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                        <!-- ============================================================== -->
+                        <!-- Logo -->
+                        <!-- ============================================================== -->
+                        <a class="navbar-brand" href="DashBoard.aspx">
+                            <!-- Logo icon -->
+                            <%-- <b class="logo-icon">
+                                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                                <!-- Dark Logo icon -->
+                                <img src="../../asset../../Image/logo-icon.png" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo icon -->
+                                <img src="../../asset../../Image/logo-light-icon.png" alt="homepage" class="light-logo" />
+                            </b>--%>
+                            <!--End Logo icon -->
+                            <!-- Logo text -->
+                            <span class="logo-text">
+                                <!-- dark Logo text -->
+
+                                <asp:Label ID="lblComNameLogo" runat="server" ForeColor="White" Font-Size="X-Large" Text="Label"></asp:Label>
+                            </span>
+                        </a>
+                        <!-- ============================================================== -->
+                        <!-- End Logo -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Toggle which is visible on mobile only -->
+                        <!-- ============================================================== -->
+                        <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                        <!-- ============================================================== -->
+                        <!-- toggle and nav items -->
+                        <!-- ============================================================== -->
+                        <ul class="navbar-nav float-left mr-auto">
+                            <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
+                            <!-- ============================================================== -->
+                            <!-- mega menu -->
+                            <!-- ============================================================== -->
+                            <li class="nav-item dropdown mega-dropdown"><a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                <span class="d-block d-md-none"><i class="mdi mdi-dialpad font-24"></i></span>
+                            </a>
+                                <div class="dropdown-menu animated bounceInDown">
+                                    <div class="mega-dropdown-menu row">
+                                        <div class="col-lg-3  mb-4">
+                                            <h4 class="mb-3">PURPOSE OF DEMO VISIT</h4>
+                                            <!-- Contact -->
+                                            <div>
+                                                <div class="form-group">
+                                                    <asp:DropDownList ID="ddlDemoPupose" CssClass="form-control" runat="server">
+                                                        <asp:ListItem Text="Need HR Software"></asp:ListItem>
+                                                        <asp:ListItem Text="Just Visiting Demo"></asp:ListItem>
+                                                        <asp:ListItem Text="For RND Purpose"></asp:ListItem>
+                                                        <asp:ListItem Text="Other"></asp:ListItem>
+                                                    </asp:DropDownList>
+                                                    <%--<asp:CheckBox ID="CheckBox1" CssClass="form-control" Text="Just Chill / RND / other." runat="server" />--%>
+                                                    <%--<input type="text" class="form-control" id="exampleInputname1sdf" placeholder="Enter Name">--%>
+                                                </div>
+                                                <div class="form-group">
+                                                    <asp:TextBox ID="txtTypeSoftwareSearching" TextMode="MultiLine" CssClass="form-control" Height="100px" runat="server" placeholder="what type software you are searching ..."></asp:TextBox>
+                                                    <%--<input type="email" class="form-control" placeholder="what type software you are searching ...">--%>
+                                                </div>
+                                                <div class="form-group">
+                                                    <asp:TextBox ID="txtCurrentSoftwareProcess" TextMode="MultiLine" CssClass="form-control" Height="100px" runat="server" placeholder="Your current software or process to calculate payroll"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3  mb-4">
+                                            <h4 class="mb-3">NEED ONLINE DEMO SESSION</h4>
+                                            <!-- Contact -->
+                                            <div>
+                                                <div class="form-group">
+                                                    <label for="inputEmail3" class="control-label col-form-label">Contact Back</label>
+                                                    <div class="input-group">
+                                                        <asp:DropDownList ID="ddlContactBack" CssClass="form-control" runat="server">
+                                                            <asp:ListItem Text="Call Back"></asp:ListItem>
+                                                            <asp:ListItem Text="SMS or WhatsApp"></asp:ListItem>
+                                                            <asp:ListItem Text="Email"></asp:ListItem>
+                                                            <asp:ListItem Text="Do not contact please"></asp:ListItem>
+                                                        </asp:DropDownList>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputEmail3" class="control-label col-form-label">Online Demo Date and Time</label>
+                                                    <div class="input-group">
+                                                        <asp:TextBox CssClass="form-control datepicker-autoclose" autocomplete="off" ID="txtDate" placeholder="From Date" runat="server"></asp:TextBox>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <%--<label for="inputEmail3" class="control-label col-form-label">Start Time</label>--%>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon14"><i class="far fa-clock"></i></span>
+                                                        </div>
+                                                        <asp:TextBox type="time" CssClass="form-control" autocomplete="off" ID="txtTime" runat="server"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">PKR</span>
+                                                    </div>
+                                                    <asp:TextBox ID="txtCost" CssClass="form-control" runat="server" placeholder="Cost range"></asp:TextBox>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3  mb-4">
+                                            <h4 class="mb-3">Demo Period and Medium</h4>
+                                            <!-- Contact -->
+                                            <div>
+                                                <div class="form-group">
+                                                    <label for="inputEmail3" class="control-label col-form-label">Demo Time Period</label>
+                                                    <div class="input-group">
+                                                        <asp:DropDownList ID="ddlDemoTime" CssClass="form-control" runat="server">
+                                                            <asp:ListItem Text="Short 10 - 20 minutes"></asp:ListItem>
+                                                            <asp:ListItem Text="Medium 20 - 30 minutes"></asp:ListItem>
+                                                            <asp:ListItem Text="Long 30 - 40 minutes"></asp:ListItem>
+                                                            <asp:ListItem Text="may be short / medium / long"></asp:ListItem>
+                                                        </asp:DropDownList>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputEmail3" class="control-label col-form-label">Online Demo App</label>
+                                                    <div class="input-group">
+                                                        <asp:DropDownList ID="ddlSoftware" CssClass="form-control" runat="server">
+                                                            <asp:ListItem Text="Zoom"></asp:ListItem>
+                                                            <asp:ListItem Text="AnyDesk"></asp:ListItem>
+                                                            <asp:ListItem Text="Skype"></asp:ListItem>
+                                                            <asp:ListItem Text="Meet"></asp:ListItem>
+                                                            <asp:ListItem Text="Other"></asp:ListItem>
+                                                        </asp:DropDownList>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%-- <button type="submit" class="btn btn-info">Submit</button>--%>
+                                        </div>
+                                        <div class="col-lg-3 col-xlg-4 mb-4">
+                                            <h4 class="mb-3">List style</h4>
+                                            <!-- List style -->
+                                            <ul class="list-style-none">
+                                                <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i>All entries are optional</a></li>
+                                                <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i>We will contact back on the basis of submition</a></li>
+                                                <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i>Another Give link</a></li>
+                                                <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i>Call : 0334 8820988</a></li>
+                                                <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i>Email : naeem@hrworld.org.pk</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <asp:Button ID="btnSendEmail" CssClass="btn btn-success"
+                                            runat="server" Text="Submit" />
+                                    </div>
+                                </div>
+                            </li>
+                           
+                            <!-- ============================================================== -->
+                            <!-- End mega menu -->
+                            <!-- ============================================================== -->
+                            <!-- ============================================================== -->
+                            <!-- create new -->
+                            <!-- ============================================================== -->
+                            <%--<li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             <span class="d-none d-md-block">Create New <i class="fa fa-angle-down"></i></span>
+                             <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>--%>
+                            <!-- ============================================================== -->
+                            <!-- Search -->
+                            <!-- ============================================================== -->
+                           <%-- <li class="nav-item search-box"><a class="nav-link waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
+                                <div class="app-search position-absolute">
+                                    <input type="text" class="form-control" placeholder="Search &amp; enter">
+                                    <a class="srh-btn"><i class="ti-close"></i></a>
+                                </div>
+                            </li>--%>
+                        </ul>
+                        <!-- ============================================================== -->
+                        <!-- Right side toggle and nav items -->
+                        <!-- ============================================================== -->
+                        <ul class="navbar-nav float-right">
+                            <%--<li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-bell font-24"></i>
+                                
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
+                                <span class="with-arrow"><span class="bg-primary"></span></span>
+                                <ul class="list-style-none">
+                                    <li>
+                                        <div class="drop-title bg-primary text-white">
+                                            <h4 class="mb-0 mt-1">4 New</h4>
+                                            <span class="font-light">Notifications</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center notifications">
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Luanch Admin</h5> <span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span> </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Event today</h5> <span class="mail-desc">Just a reminder that you have event</span> <span class="time">9:10 AM</span> </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-info btn-circle"><i class="ti-settings"></i></span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Settings</h5> <span class="mail-desc">You can customize this template as you want</span> <span class="time">9:08 AM</span> </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-primary btn-circle"><i class="ti-user"></i></span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span> </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center mb-1 text-dark" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>--%>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="d-none d-md-block">
+                                        <asp:Label ID="lblUser" runat="server" ToolTip="Current Login User Name" Text=""></asp:Label>
+                                        <asp:Label ID="lblDepartment" runat="server"></asp:Label></span>
+                                    <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%--<img src="../../asset../../Image/users/1.jpg" alt="user" class="rounded-circle" width="31"--%>
+                                    <asp:Image ID="Image1" runat="server" Width="31" CssClass="rounded-circle" alt="../../asset../../Image/users/1.jpg" />
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                                    <span class="with-arrow"><span class="bg-primary"></span></span>
+                                    <div class="d-flex no-block align-items-center p-15 bg-primary text-white mb-2">
+                                        <div class="">
+                                            <asp:Image ID="Image2" runat="server" Width="60" CssClass="img-circle" alt="../../asset../../Image/users/1.jpg" /></div>
+                                        <div class="ml-2">
+                                            <h4 class="mb-0">
+                                                <asp:Label ID="lblUser1" runat="server" ToolTip="Current Login User Name" Text=""></asp:Label></h4>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="Password.aspx"><i class="ti-key mr-1 ml-1"></i>Change Password</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="../../Login.aspx"><i class="fa fa-power-off mr-1 ml-1"></i>Logout</a>
+                                    <div class="dropdown-divider"></div>
+                                    <%--<a class="dropdown-item" href="javascript:void(0)"><i class="ti-email mr-1 ml-1"></i> Inbox</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings mr-1 ml-1"></i> Account Setting</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="login.aspx"><i class="fa fa-power-off mr-1 ml-1"></i> Logout</a>
+                                <div class="dropdown-divider"></div>
+                                <div class="pl-4 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>--%>
+                                </div>
+                            </li>
+                            <!-- ============================================================== -->
+                            <!-- User profile and search -->
+                            <!-- ============================================================== -->
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- ============================================================== -->
+            <!-- End Topbar header -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <aside class="left-sidebar" data-sidebarbg="skin5">
+                <div class="scroll-sidebar">
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav" class="p-t-30">
+                            <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link" href="DashBoard.aspx" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                            <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+                            <%--<li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link" href="Reports.aspx" aria-expanded="false"><i class="mdi mdi-presentation"></i><span class="hide-menu">Reports</span></a></li>--%>
+                        </ul>
+                    </nav>
+                </div>
+            </aside>
+            <!-- ============================================================== -->
+            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Page wrapper  -->
+            <!-- ============================================================== -->
+            <div class="page-wrapper">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Container fluid  -->
+                <!-- ============================================================== -->
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+                <!-- ============================================================== -->
+                <!-- End Container fluid  -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- footer -->
+                <!-- ============================================================== -->
+                <footer class="footer text-center">
+                    All Rights Reserved by HR World International. Designed and Developed by <a href="https://www.hrworld.org.pk/">HR World International</a>.
+                </footer>
+                <!-- ============================================================== -->
+                <!-- End footer -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Page wrapper  -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Wrapper -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- customizer Panel -->
+        <!-- ============================================================== -->
+        <aside class="customizer">
+            <a href="javascript:void(0)" class="service-panel-toggle"><i class="fa fa-spin fa-cog"></i></a>
+            <div class="customizer-body">
+                <ul class="nav customizer-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="mdi mdi-wrench font-20"></i></a>
+                    </li>
+                    
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <!-- Tab 1 -->
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="p-15 border-bottom">
+                            <!-- Sidebar -->
+                            <h5 class="font-medium mb-2 mt-2">Layout Settings</h5>
+                            <div class="custom-control custom-checkbox mt-2">
+                                <input type="checkbox" class="custom-control-input" name="theme-view" id="theme-view" onclick="handlethemeview();">
+                                <%-- <asp:CheckBox ID="theme_view" type="checkbox" Text="Dark Theme" runat="server" CssClass="custom-control-input" name="theme-view" AutoPostBack="true" OnCheckedChanged="theme_view_CheckedChanged"/>--%>
+                                <label class="custom-control-label" for="theme-view">Dark Theme</label>
+                            </div>
+                            <div class="custom-control custom-checkbox mt-2">
+                                <input type="checkbox" class="custom-control-input sidebartoggler" name="collapssidebar" id="collapssidebar">
+                                <label class="custom-control-label" for="collapssidebar">Collapse Sidebar</label>
+                            </div>
+                            <div class="custom-control custom-checkbox mt-2">
+                                <input type="checkbox" class="custom-control-input" name="sidebar-position" id="sidebar-position">
+                                <label class="custom-control-label" for="sidebar-position">Fixed Sidebar</label>
+                            </div>
+                            <div class="custom-control custom-checkbox mt-2">
+                                <input type="checkbox" class="custom-control-input" name="header-position" id="header-position">
+                                <label class="custom-control-label" for="header-position">Fixed Header</label>
+                            </div>
+                            <div class="custom-control custom-checkbox mt-2">
+                                <input type="checkbox" class="custom-control-input" name="boxed-layout" id="boxed-layout">
+                                <label class="custom-control-label" for="boxed-layout">Boxed Layout</label>
+                            </div>
+                        </div>
+                        <div class="p-15 border-bottom">
+                            <!-- Logo BG -->
+                            <h5 class="font-medium mb-2 mt-2">Logo Backgrounds</h5>
+
+                            <ul class="theme-color">
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin1"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin2"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin3"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin4"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin5"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin6"></a></li>
+                            </ul>
+                            <!-- Logo BG -->
+                        </div>
+                        <div class="p-15 border-bottom">
+                            <!-- Navbar BG -->
+                            <h5 class="font-medium mb-2 mt-2">Navbar Backgrounds</h5>
+                            <ul class="theme-color">
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin1"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin2"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin3"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin4"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin5"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin6"></a></li>
+                            </ul>
+                            <!-- Navbar BG -->
+                        </div>
+                        <div class="p-15 border-bottom">
+                            <!-- Logo BG -->
+                            <h5 class="font-medium mb-2 mt-2">Sidebar Backgrounds</h5>
+                            <ul class="theme-color">
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin1"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin2"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin3"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin4"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin5"></a></li>
+                                <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin6"></a></li>
+                            </ul>
+                            <!-- Logo BG -->
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </aside>
+        <div class="chat-windows"></div>
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+
+        <script data-cfasync="false" src="../../../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+        <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+        <script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- apps -->
+        <script src="../../dist/js/app.min.js"></script>
+        <!-- fixed sidebar and header -->
+        <asp:Label ID="LogoBg" runat="server"></asp:Label>
+       <%-- <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>--%>
+        <script>    
+            function handlethemeview() {
+                $('#theme_view').change(function () {
+                    if ($(this).is(":checked")) {
+
+                        PageMethods.SetSessionValue('Theme', true, null, null);
+                    } else {
+
+                        PageMethods.SetSessionValue('Theme', false, null, null);
+                    }
+                });
+            }; Elegant Theme Side Menu Open OnClick
+        </script>
+        <script>
+            $(function () {
+                "use strict";
+                $("#main-wrapper").AdminSettings({
+                    Theme: 'skin5', // this can be true or false ( true means dark and false means light ),
+                    Layout: 'vertical',
+                    LogoBg: 'skin5',//document.getElementById('LogoBg');, // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6 
+                    NavbarBg: 'skin5', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+                    SidebarType: 'full', // You can change it full / mini-sidebar / iconbar / overlay
+                    SidebarColor: 'skin5', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+                    SidebarPosition: true, // it can be true / false ( true means Fixed and false means absolute )
+                    HeaderPosition: true, // it can be true / false ( true means Fixed and false means absolute )
+                    BoxedLayout: false, // it can be true / false ( true means Boxed and false means Fluid ) 
+                });
+
+            });
+        </script>
+        <script>
+</script>
+        <script src="../../dist/js/app-style-switcher.js">
+        </script>
+        <!-- slimscrollbar scrollbar JavaScript -->
+        <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+        <script src="../../assets/extra-libs/sparkline/sparkline.js"></script>
+        <!--Wave Effects -->
+        <script src="../../dist/js/waves.js"></script>
+        <!--Menu sidebar -->
+        <script src="../../dist/js/sidebarmenu.js"></script>
+        <!--Custom JavaScript -->
+        <script src="../../dist/js/feather.min.js"></script>
+        <script src="../../dist/js/custom.min.js"></script>
+        <!--This page JavaScript -->
+        <!--chartis chart-->
+        <script src="../../assets/libs/chartist/dist/chartist.min.js"></script>
+        <script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+        <!--c3 charts -->
+        <script src="../../assets/extra-libs/c3/d3.min.js"></script>
+        <script src="../../assets/extra-libs/c3/c3.min.js"></script>
+        <!--chartjs -->
+        <script src="../../assets/libs/chart.js/dist/Chart.min.js"></script>
+        <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
+        <script src="../../assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+      <script src="../../assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="../../assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="../../dist/js/pages/forms/select2/select2.init.js"></script>
+        <script src="../../assets/libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+        <script src="../../assets/libs/sweetalert2/sweet-alert.init.js"></script>
+        <script src="../../assets/extra-libs/toastr/dist/build/toastr.min.js"></script>
+        <script src="../../assets/extra-libs/toastr/toastr-init.js"></script>
+         <script src="../../assets/libs/summernote/dist/summernote-bs4.min.js"></script>
+        <script src="../../dist/js/pages/samplepages/jquery.PrintArea.js"></script>
+       
+    
+    <script>
+            /************************************/
+            //default editor
+            /************************************/
+            $('.summernote').summernote({
+                height: 350, // set editor height
+                minHeight: null, // set minimum height of editor
+                maxHeight: null, // set maximum height of editor
+                focus: false // set focus to editable area after initializing summernote
+            });
+
+            /************************************/
+            //inline-editor
+            /************************************/
+            $('.inline-editor').summernote({
+                airMode: true
+            });
+
+            /************************************/
+            //edit and save mode
+            /************************************/
+            window.edit = function () {
+                $(".click2edit").summernote()
+            },
+                window.save = function () {
+                    $(".click2edit").summernote('destroy');
+                }
+
+            var edit = function () {
+                $('.click2edit').summernote({ focus: true });
+            };
+
+            var save = function () {
+                var markup = $('.click2edit').summernote('code');
+                $('.click2edit').summernote('destroy');
+            };
+
+            /************************************/
+            //airmode editor
+            /************************************/
+            $('.airmode-summer').summernote({
+                airMode: true
+            });
+    </script>
+        <script>    
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+            prm.add_endRequest(prm_endRequest);
+            function Approve() {
+                toastr.success('Approved', 'Request', { positionClass: 'toastr toast-bottom-left', containerId: 'toast-bottom-left' });
+             
+            }
+            function Info(Header, Details) {
+                toastr.info(Details, Header, { positionClass: 'toastr toast-bottom-left', containerId: 'toast-bottom-left' });
+               
+            }
+            function Warning(Header, Details) {
+                toastr.Warning(Details, Header, { positionClass: 'toastr toast-bottom-left', containerId: 'toast-bottom-left' });
+              
+            }
+            function Errorss(Details) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: Details,
+                    footer: '<a href>Please take screen shot and send to Admin</a>'
+                })
+               
+            }
+            function Reject() {
+                toastr.error('Rejected', 'Request', { positionClass: 'toastr toast-bottom-left', containerId: 'toast-bottom-left' });               
+            }
+            function SaveUpdate(Header, Details) {
+                Swal.fire(Header, Details, "success")
+            }
+            //function SaveUpdate(Header, Details) {
+            //    Swal.fire(Header, Details, "success")
+            //}
+            function Save() {
+                
+                Swal.fire({
+                    position: 'top-end',
+                    type: 'success',
+                    title: 'Your record has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+            function Update() {
+
+                Swal.fire({
+                    position: 'top-end',
+                    type: 'success',
+                    title: 'Your record has been updated',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+            function Delete() {
+
+                Swal.fire({
+                    position: 'top-end',
+                    type: 'success',
+                    title: 'Your record has been deleted',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+            function Info() {
+
+                Swal.fire({
+                    position: 'top-end',
+                    type: 'success',
+                    title: 'Record Already Exists',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+            function Details(Details,type) {
+
+                Swal.fire({
+                    position: 'top-end',
+                    type: type,
+                    title: Details,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+            
+            function AutoClose2Sec(Header, Details) {
+                Swal.fire({
+                    title: Header,
+                    text: Details,
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+
+
+            function AutoClose2Sec() {
+
+                Swal.fire({
+                    position: 'top-end',
+                    type: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+
+
+            function DeleteConfirm() {
+                Swal.fire({
+                    title: 'Are you sure to delete?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+
+            }
+
+           
+            
+        </script>
+        <script type="text/javascript"> 
+             $(document).ready(function () {
+                 //***********************************//
+                 // For select 2
+                 //***********************************//
+                 $(".select2").select2();
+                 /*colorpicker*/
+                 $('.demo').each(function () {
+                     //
+                     // Dear reader, it's actually very easy to initialize MiniColors. For example:
+                     //
+                     //  $(selector).minicolors();
+                     //
+                     // The way I've done it below is just for the demo, so don't get confused
+                     // by it. Also, data- attributes aren't supported at this time...they're
+                     // only used for this demo.
+                     //
+                     $(this).minicolors({
+                         control: $(this).attr('data-control') || 'hue',
+                         position: $(this).attr('data-position') || 'bottom left',
+                         change: function (value, opacity) {
+                             if (!value) return;
+                             if (opacity) value += ', ' + opacity;
+                             if (typeof console === 'object') {
+                                 console.log(value);
+                             }
+                         },
+                         theme: 'bootstrap'
+                     });
+                 });
+                 /*datwpicker*/
+                 jQuery('.mydatepicker').datepicker();
+                 jQuery('.datepicker-autoclose').datepicker({
+                     autoclose: true,
+                     todayHighlight: true,
+                     locale: {
+                         format: 'yyyy-MM-dd'
+                     }
+                 });
+                 var quill = new Quill('#editor', {
+                     theme: 'snow'
+                 });
+             });
+             var parameter = Sys.WebForms.PageRequestManager.getInstance();
+             parameter.add_endRequest(function () {
+                 //***********************************//
+                 // For select 2
+                 //***********************************//
+                 $(".select2").select2();
+                 jQuery('.mydatepicker').datepicker();
+                 jQuery('.datepicker-autoclose').datepicker({
+                     autoclose: true,
+                     todayHighlight: true
+                 });
+             });
+             /*colorpicker*/
+             $('.demo').each(function () {
+                 //
+                 // Dear reader, it's actually very easy to initialize MiniColors. For example:
+                 //
+                 //  $(selector).minicolors();
+                 //
+                 // The way I've done it below is just for the demo, so don't get confused
+                 // by it. Also, data- attributes aren't supported at this time...they're
+                 // only used for this demo.
+                 //
+                 $(this).minicolors({
+                     control: $(this).attr('data-control') || 'hue',
+                     position: $(this).attr('data-position') || 'bottom left',
+                     change: function (value, opacity) {
+                         if (!value) return;
+                         if (opacity) value += ', ' + opacity;
+                         if (typeof console === 'object') {
+                             console.log(value);
+                         }
+                     },
+                     theme: 'bootstrap'
+                 });
+             });
+             /*datwpicker*/
+             var quill = new Quill('#editor', {
+                 theme: 'snow'
+             });
+        </script>
+    </form>
+</body>
+</html>
